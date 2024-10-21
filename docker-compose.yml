@@ -1,7 +1,9 @@
 services:
-  flask-app:
+  api_flask:
     build: .
-    container_name: flask-app-container
+    container_name: lucasdaniellopes/casadosdados-api:latest
     ports:
       - "5000:5000"
-    restart: always
+    environment:
+      - FLASK_ENV=production
+    command: flask run --host=0.0.0.0
