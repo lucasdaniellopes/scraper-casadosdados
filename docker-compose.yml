@@ -4,11 +4,10 @@ services:
     container_name: lucasdaniellopes/casadosdados-api:latest
     ports:
       - "5000:5000"
-
     command: flask run --host=0.0.0.0
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.casadosdados.rule=Host(seu_dominio.com)"
+      - "traefik.http.routers.casadosdados.rule=Host(`${DOMAIN}`)"
       - "traefik.http.routers.casadosdados.entrypoints=websecure"
       - "traefik.http.routers.casadosdados.tls.certresolver=myresolver"
       - "traefik.http.services.casadosdados.loadbalancer.server.port=5000"
