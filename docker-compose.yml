@@ -1,9 +1,10 @@
 services:
   api_flask:
-    build: .
-    container_name: lucasdaniellopes/casadosdados-api:latest
+    image: lucasdaniellopes/casadosdados-api:latest
     ports:
       - "5000:5000"
+    environment:
+      FLASK_ENV: production
     command: flask run --host=0.0.0.0
     labels:
       - "traefik.enable=true"
@@ -11,5 +12,8 @@ services:
       - "traefik.http.routers.casadosdados.entrypoints=websecure"
       - "traefik.http.routers.casadosdados.tls.certresolver=myresolver"
       - "traefik.http.services.casadosdados.loadbalancer.server.port=5000"
-    environment:
-      - FLASK_ENV=production
+
+networks:
+  default:
+    external:
+      name: "${TRAEFIK_NETWORK}"
